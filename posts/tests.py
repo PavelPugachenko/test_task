@@ -1,6 +1,7 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
-from .models import Post, Comment
+from django.test import TestCase
+
+from .models import Comment, Post
 
 User = get_user_model()
 
@@ -11,18 +12,14 @@ class PostModelTest(TestCase):
             username="testuser",
             email="test@mail.ru",
             password="12345678",
-            birth_date="2000-01-01"
+            birth_date="2000-01-01",
         )
 
     def test_user_age(self):
         self.assertEqual(self.user.age, 24)  # зависит от года
 
     def test_post_creation(self):
-        post = Post.objects.create(
-            title="Тест",
-            content="Содержание",
-            author=self.user
-        )
+        post = Post.objects.create(title="Тест", content="Содержание", author=self.user)
         self.assertEqual(post.author, self.user)
 
 

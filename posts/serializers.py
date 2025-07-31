@@ -1,12 +1,15 @@
-from rest_framework import serializers
-from .models import User, Post, Comment
-from .validators import (
-    validate_password,
-    validate_email_domain,
-    validate_title_forbidden_words,
-    validate_author_age
+from django.contrib.auth.password_validation import (
+    validate_password as django_validate_password,
 )
-from django.contrib.auth.password_validation import validate_password as django_validate_password
+from rest_framework import serializers
+
+from .models import Comment, Post, User
+from .validators import (
+    validate_author_age,
+    validate_email_domain,
+    validate_password,
+    validate_title_forbidden_words,
+)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,10 +18,16 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id', 'username', 'email', 'password', 'phone',
-            'birth_date', 'created_at', 'updated_at'
+            "id",
+            "username",
+            "email",
+            "password",
+            "phone",
+            "birth_date",
+            "created_at",
+            "updated_at",
         ]
-        read_only_fields = ['created_at', 'updated_at']
+        read_only_fields = ["created_at", "updated_at"]
 
     def validate_email(self, value):
         validate_email_domain(value)
@@ -34,8 +43,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'author', 'post', 'content', 'created_at', 'updated_at']
-        read_only_fields = ['author']
+        fields = ["id", "author", "post", "content", "created_at", "updated_at"]
+        read_only_fields = ["author"]
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -44,15 +53,24 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'content', 'image', 'author', 'comments', 'created_at', 'updated_at']
-        read_only_fields = ['author']
+        fields = [
+            "id",
+            "title",
+            "content",
+            "image",
+            "author",
+            "comments",
+            "created_at",
+            "updated_at",
+        ]
+        read_only_fields = ["author"]
 
     def validate_title(self, value):
         validate_title_forbidden_words(value)
         return value
 
     def create(self, validated_data):
-        user = self.context['request'].user
+        user = self.context["request"].user
         post = Post.objects.create(author=user, **validated_data)
         validate_author_age(post)
         return post

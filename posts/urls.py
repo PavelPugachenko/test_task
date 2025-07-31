@@ -1,18 +1,29 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, PostViewSet, CommentViewSet
+
+from .views import CommentViewSet, PostViewSet, UserViewSet
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'posts', PostViewSet)
+router.register(r"users", UserViewSet)
+router.register(r"posts", PostViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api/posts/<int:post_pk>/comments/', CommentViewSet.as_view({'get': 'list', 'post': 'create'}), name='post-comments'),
-    path('api/posts/<int:post_pk>/comments/<int:pk>/', CommentViewSet.as_view({
-        'get': 'retrieve',
-        'put': 'update',
-        'patch': 'partial_update',
-        'delete': 'destroy'
-    }), name='post-comment-detail'),
+    path("api/", include(router.urls)),
+    path(
+        "api/posts/<int:post_pk>/comments/",
+        CommentViewSet.as_view({"get": "list", "post": "create"}),
+        name="post-comments",
+    ),
+    path(
+        "api/posts/<int:post_pk>/comments/<int:pk>/",
+        CommentViewSet.as_view(
+            {
+                "get": "retrieve",
+                "put": "update",
+                "patch": "partial_update",
+                "delete": "destroy",
+            }
+        ),
+        name="post-comment-detail",
+    ),
 ]

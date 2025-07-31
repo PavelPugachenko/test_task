@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bf9qlz38v18r$wqh*85n2y@3yy7jp%-0-@udu&_vcyb))72007'
+SECRET_KEY = "django-insecure-bf9qlz38v18r$wqh*85n2y@3yy7jp%-0-@udu&_vcyb))72007"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -21,15 +21,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'rest_framework',
-    'posts',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "posts",
 ]
 
 MIDDLEWARE = [
@@ -68,11 +68,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'new_database',
-        "USER": 'postgres',
-        "PASSWORD": '2410',
-        "HOST": 'localhost',
-        "PORT": '5432',
+        "NAME": "new_database",
+        "USER": "postgres",
+        "PASSWORD": "2410",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -119,12 +119,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
 }
-
